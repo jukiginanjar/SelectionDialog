@@ -26,13 +26,15 @@ open class SelectionDialog: UIView {
     open var closeButtonColorHighlighted: UIColor?
     
     fileprivate var dialogView: UIView?
+    fileprivate var iconContentMode: UIViewContentMode = .scaleToFill
     
     public init() {
         super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         setObservers()
     }
     
-    public init(title: String, closeButtonTitle cancelString: String) {
+    public init(title: String, closeButtonTitle cancelString: String, iconContentMode: UIViewContentMode) {
+        self.iconContentMode = iconContentMode
         self.title = title
         self.closeButtonTitle = cancelString
         super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
@@ -160,6 +162,7 @@ open class SelectionDialog: UIView {
                 itemTitleLabel.frame.origin.x = 34 + itemPadding*2
                 let itemIcon = UIImageView(frame: CGRect(x: itemPadding, y: 8, width: 34, height: 34))
                 itemIcon.image = item.icon
+                itemIcon.contentMode = self.iconContentMode
                 itemButton.addSubview(itemIcon)
             }
             containerView.addSubview(itemButton)
